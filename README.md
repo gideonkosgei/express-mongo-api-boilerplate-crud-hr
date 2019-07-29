@@ -10,7 +10,7 @@ The MongoDM data Model is a reflection of Oracle's HR schema
 ```
 npm install
 ```
-### Dependencie
+### Dependencies
 
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
