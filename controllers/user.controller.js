@@ -20,7 +20,8 @@ exports.create = (req, res) => {
     // Create a user
     const user = new User({
         firstname: req.body.firstname, 
-        lastname: req.body.lastname
+        lastname: req.body.lastname,
+        date_of_birth:req.body.date_of_birth
     });
 
     // Save User in the database
@@ -90,7 +91,8 @@ exports.update = (req, res) => {
     // Find user and update it with the request body
     User.findByIdAndUpdate(req.params.userId, {
         firstname: req.body.firstname ,
-        lastname: req.body.lastname
+        lastname: req.body.lastname,
+        date_of_birth:req.body.date_of_birth
     }, {new: true})
     .then(user => {
         if(!user) {

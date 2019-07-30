@@ -12,7 +12,13 @@ const employees = new Schema(
         phone_number: { type: String },
         hire_date: { type: Date },
         salary: { type: Number } ,
-        commission_pct: { type: Number }      
+        commission_pct: { type: Number },
+        job: {
+            job_id : { type: Number },
+            job_title : { type: String },
+            min_salary : { type: Number },
+            max_salary : { type: Number }
+        }     
 	},
 	{
 		timestamps: true

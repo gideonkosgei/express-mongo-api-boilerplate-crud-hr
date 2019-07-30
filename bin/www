@@ -5,18 +5,20 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('express-api-boilerplate-crud-hr:server');
+var debug = require('debug')('express-mongo-api-boilerplate-crud-hr:server');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '4500');
+var port = normalizePort(process.env.PORT || '4200');
 app.set('port', port);
 
+console.log('port:'+port);
+
 /**
- * Create HTTP server.
+ * Create HTTP server.n
  */
 
 var server = http.createServer(app);

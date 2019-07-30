@@ -18,6 +18,7 @@ exports.create = (req, res) => {
     
 
     // Create a Employee
+    
     const employee = new Employee({
         employee_number: req.body.employee_number,
         first_name: req.body.first_name, 
@@ -26,8 +27,20 @@ exports.create = (req, res) => {
         phone_number: req.body.phone_number,
         hire_date: req.body.hire_date,
         salary: req.body.salary, 
-        commission_pct: req.body.commission_pct
+        commission_pct: req.body.commission_pct,
+        job:{
+            job_id: req.body.job_id,
+            job_title: req.body.job_title,
+            min_salary: req.body.min_salary,
+            max_salary: req.body.max_salary
+        }
     });
+
+
+    
+
+    
+
 
     // Save Employee in the database
     employee.save()
@@ -102,7 +115,13 @@ exports.update = (req, res) => {
         phone_number: req.body.phone_number,
         hire_date: req.body.hire_date,
         salary: req.body.salary, 
-        commission_pct: req.body.commission_pct
+        commission_pct: req.body.commission_pct,
+        job:{
+            job_id: req.body.job_id,
+            job_title: req.body.job_title,
+            min_salary: req.body.min_salary,
+            max_salary: req.body.max_salary
+        }
     }, {new: true})
     .then(employee => {
         if(!employee) {
