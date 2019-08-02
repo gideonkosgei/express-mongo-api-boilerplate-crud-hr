@@ -16,5 +16,8 @@ module.exports = (app) => {
 
     // Delete an Employee with employeeId
     app.delete('/employees/:employeeId', employees.delete);
+
+     // Add Employee Contact details
+     app.put('/employees/contacts/:employeeId', employees.AddContactDetails);
    
 }

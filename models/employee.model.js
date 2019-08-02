@@ -2,7 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 mongoose.promise = Promise
 
-
+const contact_schema = new Schema(
+    {
+        contact_type : { type: String },
+        contact_number : { type: String }
+    }  
+);
 
 const CountyArray = ["Nairobi", "Mombasa", "Nakuru", "Laikipia", "UASIN GISHU", "Elgeiyo Marakwet", "Nandi", "Kericho", "Machakos", "Kiambu", "Meru", "Tana River", "Narok", 
 "Kajiado", "Makueni", "Kitui", "Mandera", "lamu"];
@@ -14,7 +19,7 @@ const employees = new Schema(
 		first_name: { type: String },
         last_name: { type: String },       
         email: { type: String },
-        phone_number: { type: String },
+        contacts: [contact_schema],      
         hire_date: { type: Date },
         salary: { type: Number } ,
         commission_pct: { type: Number },

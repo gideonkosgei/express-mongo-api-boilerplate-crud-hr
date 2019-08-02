@@ -146,6 +146,39 @@ exports.update = (req, res) => {
 
 
 
+// Update an Employee identified by the employeeId in the request with new contact Details
+exports.AddContactDetails = (req, res) => {
+    // Validate Request
+    Employee.findByIdAndUpdate(req.params.employeeId, 
+          { $push: {contacts: {
+                contact_type: req.body.contact_type,
+                contact_number: req.body.contact_number
+          } } 
+        }
+    , {new: true})
+    .then(employee => {
+        if(!employee) {
+            return res.status(404).json({
+                message: "Employee not found with id " + req.params.employeeId
+            });
+        }
+        res.json(employee);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).json({
+                message: "Employee not found with id " + req.params.employeeId
+            });                
+        }
+        return res.status(500).json({
+            message: "Error updating Employee with id " + req.params.employeeId
+        });
+    });
+
+}
+
+  
+
+
 // Delete an Employee with the specified employeeId in the request
 exports.delete = (req, res) => {
     Employee.findByIdAndRemove(req.params.employeeId)
