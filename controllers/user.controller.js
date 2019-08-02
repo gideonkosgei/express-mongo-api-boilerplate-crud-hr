@@ -2,6 +2,7 @@ const User = require('../models/user.model.js');
 
 // Create and Save a new user
 exports.create = (req, res) => {
+
     // Validate request
     
     if(!req.body.firstname) {

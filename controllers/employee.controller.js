@@ -15,6 +15,8 @@ exports.create = (req, res) => {
             message: "Last Name can not be empty"
         });
     }
+
+    console.log(req.body.job.job_id);
     
 
     // Create a Employee
@@ -29,17 +31,12 @@ exports.create = (req, res) => {
         salary: req.body.salary, 
         commission_pct: req.body.commission_pct,
         job:{
-            job_id: req.body.job_id,
-            job_title: req.body.job_title,
-            min_salary: req.body.min_salary,
-            max_salary: req.body.max_salary
+            job_id: req.body.job.job_id,
+            job_title: req.body.job.job_title,
+            min_salary: req.body.job.min_salary,
+            max_salary: req.body.job.max_salary
         }
     });
-
-
-    
-
-    
 
 
     // Save Employee in the database
