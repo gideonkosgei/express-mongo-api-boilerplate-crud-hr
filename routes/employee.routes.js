@@ -18,6 +18,9 @@ module.exports = (app) => {
     app.delete('/employees/:employeeId', employees.delete);
 
      // Add Employee Contact details
-     app.put('/employees/contacts/:employeeId', employees.AddContactDetails);
+     app.put('/employees/:employeeId/contacts', employees.AddContactDetails);
+     
+     // Update Employee Contact details
+     app.put('/employees/:employeeId/contacts/:contactId', employees.UpdateContactDetails);
    
 }
