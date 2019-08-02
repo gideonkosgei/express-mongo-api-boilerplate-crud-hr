@@ -17,12 +17,17 @@ exports.create = (req, res) => {
         });
     }
     
-
+    
     // Create a user
     const user = new User({
         firstname: req.body.firstname, 
         lastname: req.body.lastname,
-        date_of_birth:req.body.date_of_birth
+        date_of_birth:req.body.date_of_birth,
+        username: req.body.username,
+        password : req.body.password,
+        email:req.body.email,
+        gender : req.body.gender,
+        admin: req.body.admin
     });
 
     // Save User in the database
@@ -93,7 +98,12 @@ exports.update = (req, res) => {
     User.findByIdAndUpdate(req.params.userId, {
         firstname: req.body.firstname ,
         lastname: req.body.lastname,
-        date_of_birth:req.body.date_of_birth
+        date_of_birth:req.body.date_of_birth,        
+        username: req.body.username,
+        password : req.body.password,
+        email:req.body.email,
+        gender : req.body.gender,
+        admin: req.body.admin
     }, {new: true})
     .then(user => {
         if(!user) {

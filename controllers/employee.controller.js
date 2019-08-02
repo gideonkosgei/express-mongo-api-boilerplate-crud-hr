@@ -16,11 +16,8 @@ exports.create = (req, res) => {
         });
     }
 
-    console.log(req.body.job.job_id);
-    
-
     // Create a Employee
-    
+
     const employee = new Employee({
         employee_number: req.body.employee_number,
         first_name: req.body.first_name, 
@@ -35,9 +32,14 @@ exports.create = (req, res) => {
             job_title: req.body.job.job_title,
             min_salary: req.body.job.min_salary,
             max_salary: req.body.job.max_salary
+        },
+        address:{
+            street: req.body.address.street,
+            city: req.body.address.city,
+            county: req.body.address.county,
+            code: req.body.address.code
         }
     });
-
 
     // Save Employee in the database
     employee.save()
@@ -49,7 +51,6 @@ exports.create = (req, res) => {
         });
     });
 };
-
 
 // Retrieve and return all Employees from the database.
 exports.findAll = (req, res) => {
@@ -86,8 +87,6 @@ exports.findOne = (req, res) => {
     });
 };
 
-
-
 // Update an Employee identified by the employeeId in the request
 exports.update = (req, res) => {
     // Validate Request
@@ -102,7 +101,7 @@ exports.update = (req, res) => {
             message: "last name can not be empty"
         });
     }
-
+  
     // Find Employee and update it with the request body
     Employee.findByIdAndUpdate(req.params.employeeId, {        
         employee_number: req.body.employee_number,
@@ -114,10 +113,16 @@ exports.update = (req, res) => {
         salary: req.body.salary, 
         commission_pct: req.body.commission_pct,
         job:{
-            job_id: req.body.job_id,
-            job_title: req.body.job_title,
-            min_salary: req.body.min_salary,
-            max_salary: req.body.max_salary
+            job_id: req.body.job.job_id,
+            job_title: req.body.job.job_title,
+            min_salary: req.body.job.min_salary,
+            max_salary: req.body.job.max_salary
+        },
+        address:{
+            street: req.body.address.street,
+            city: req.body.address.city,
+            county: req.body.address.county,
+            code: req.body.address.code
         }
     }, {new: true})
     .then(employee => {

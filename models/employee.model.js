@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 mongoose.promise = Promise
 
+
+
+const CountyArray = ["Nairobi", "Mombasa", "Nakuru", "Laikipia", "UASIN GISHU", "Elgeiyo Marakwet", "Nandi", "Kericho", "Machakos", "Kiambu", "Meru", "Tana River", "Narok", 
+"Kajiado", "Makueni", "Kitui", "Mandera", "lamu"];
+
 // Define  Employees Schema
 const employees = new Schema(
 	{  
@@ -18,7 +23,19 @@ const employees = new Schema(
             job_title : { type: String },
             min_salary : { type: Number },
             max_salary : { type: Number }
-        }     
+        } ,
+        address : {
+            street: { type: String },
+            city: { type: String },
+            county: {
+                type: String,
+                uppercase: true,
+                required: true,
+                enum: CountyArray
+            },
+            code: { type: String },
+        }
+         
 	},
 	{
 		timestamps: true
