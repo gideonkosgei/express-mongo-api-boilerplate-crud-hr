@@ -21,6 +21,8 @@ module.exports = (app) => {
      app.put('/employees/:employeeId/contacts', employees.AddContactDetails);
      
      // Update Employee Contact details
-     app.put('/employees/:employeeId/contacts/:contactId', employees.UpdateContactDetails);
+     //app.put('/employees/:employeeId/contacts/:contactId/update', employees.UpdateContactDetails);
+     // Remove specified Contact Detail from specified Employee
+     app.put('/employees/:employeeId/contacts/:contactId/remove', employees.RemoveContactDetailsFromEmployee);
    
 }

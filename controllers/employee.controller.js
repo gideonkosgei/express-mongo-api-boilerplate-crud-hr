@@ -144,7 +144,27 @@ exports.update = (req, res) => {
     });
 };
 
-
+// Delete an Employee with the specified employeeId in the request
+exports.delete = (req, res) => {
+    Employee.findByIdAndRemove(req.params.employeeId)
+    .then(employee => {
+        if(!employee) {
+            return res.status(404).json({
+                message: "Employee not found with id " + req.params.employeeId
+            });
+        }
+        res.json({message: "Employee deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).json({
+                message: "Employee not found with id " + req.params.employeeId
+            });                
+        }
+        return res.status(500).json({
+            message: "Could not delete Employee with id " + req.params.employeeId
+        });
+    });
+};
 
 // Update an Employee identified by the employeeId in the request with new contact Details
 exports.AddContactDetails = (req, res) => {
@@ -176,20 +196,37 @@ exports.AddContactDetails = (req, res) => {
 
 }
 
+// Remove a specified Contact Details from A specific Employee
+exports.RemoveContactDetailsFromEmployee = (req, res) => {
+    // Find Employee and Contact and Remove Contact
+    //  1. Check if the Employee Exists. If Yes go to 2 else exit
+    //  2. Check if the Contact exists. If yes Delete contact else exit
 
+    
+    // check if employee ID is passed parameter
+    if(!req.params.employeeId) {
+        return res.status(400).json({
+            message: "Employee ID can not be empty"
+        });
+    }
 
+    // check if contact ID is passed as parameter
+    if(!req.params.contactId) {
+        return res.status(400).json({
+            message: "Contact ID can not be empty"
+        });
+    }
 
-// Update an Employee identified by the employeeId in the request with new contact Details
-exports.UpdateContactDetails = (req, res) => {
-    // Validate Request
-    Employee.findByIdAndUpdate({ _id:req.params.employeeId,contacts:req.params.contactId}, 
-          { $set: {contacts: {
-                contact_type: req.body.contact_type,
-                contact_number: req.body.contact_number
-          } } 
-        }
-    , {new: true})
-    .then(employee => {
+    
+  
+    Employee.findByIdAndUpdate({_id: req.params.employeeId}, {    
+        $pull: {
+            contacts: {
+                _id: req.params.contactId
+            }
+        }          
+    }, {new: true})
+    .then(employee => {       
         if(!employee) {
             return res.status(404).json({
                 message: "Employee not found with id " + req.params.employeeId
@@ -203,35 +240,8 @@ exports.UpdateContactDetails = (req, res) => {
             });                
         }
         return res.status(500).json({
-            message: "Error Adding Contact Details " + req.params.employeeId
-        });
-    });
-
-}
-
-
-
-// Delete an Employee with the specified employeeId in the request
-exports.delete = (req, res) => {
-    Employee.findByIdAndRemove(req.params.employeeId)
-    .then(employee => {
-        if(!employee) {
-            return res.status(404).json({
-                message: "Employee not found with id " + req.params.employeeId
-            });
-        }
-        res.json({message: "Employee deleted successfully!"});
-    }).catch(err => {
-        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
-            return res.status(404).json({
-                message: "Employee not found with id " + req.params.employeeId
-            });                
-        }
-        return res.status(500).json({
-            message: "Could not delete Employee with id " + req.params.employeeId
+            message: "Error updating Employee with id " + req.params.employeeId
         });
     });
 };
-
-
 
