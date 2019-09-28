@@ -45,14 +45,12 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // show the error message 
-  res.status((err.status || 500).json(
-    {
-      "error": res.locals.message
-    }
-    )
-  );
-      
-   
+  res.status(500).json
+  res.json( {
+    "status": (err.status || 500),
+    "error": res.locals.message
+  }
+    );
 });
 
 module.exports = app;
